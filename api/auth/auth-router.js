@@ -9,7 +9,7 @@ const {
   checkPasswordLength
 } = require("./auth-middleware");
 
-/**
+/*
   1 [POST] /api/auth/register { "username": "sue", "password": "1234" }
 
   response:
@@ -30,7 +30,7 @@ const {
   {
     "message": "Password must be longer than 3 chars"
   }
- */
+*/
 
 router.post("/register",
   checkUsernameFree,
@@ -48,7 +48,7 @@ router.post("/register",
   }
 );
 
-/**
+/*
   2 [POST] /api/auth/login { "username": "sue", "password": "1234" }
 
   response:
@@ -62,7 +62,7 @@ router.post("/register",
   {
     "message": "Invalid credentials"
   }
- */
+*/
 
 router.post("/login",
   checkUsernameExists,
@@ -88,7 +88,7 @@ router.post("/login",
   }
 );
 
-/**
+/*
   3 [GET] /api/auth/logout
 
   response for logged-in users:
@@ -102,8 +102,23 @@ router.post("/login",
   {
     "message": "no session"
   }
- */
+*/
 
+router.get("/logout",
+  async (req, res, next) => { // eslint-disable-line
+    if (!req.session.user) {
+      res.status(200).json({ message: "no session" });
+    } else {
+      req.session.destroy(err => {
+        if (err) {
+          res.status(200).json({ message: "something went wrong" });
+        } else {
+          res.status(200).json({ message: "logged out" });
+        }
+      });
+    }
+  }
+);
 
 // Don't forget to add the router to the `exports` object so it can be required in other modules
 module.exports = router;
