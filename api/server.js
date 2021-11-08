@@ -18,6 +18,7 @@ const session = require("express-session");
 const db = require("./../data/db-config");
 const helmet = require("helmet");
 const usersRouter = require("./users/users-router");
+const authRouter = require("./auth/auth-router");
 const Store = require("connect-session-knex")(session);
 
 // Server instantiation
@@ -50,6 +51,7 @@ server.use(session({
 
 // Routes
 server.use("/api/users", usersRouter);
+server.use("/api/auth", authRouter);
 
 // Endpoints
 server.get("/", (req, res) => {
