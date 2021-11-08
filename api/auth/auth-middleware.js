@@ -25,7 +25,7 @@ const restricted = (req, res, next) => {
 */
 const checkUsernameFree = async (req, res, next) => {
   const { username } = req.body;
-  const user = await User.findBy({ username });
+  const user = await User.findBy({ username: username });
   if (user) {
     next({
       status: 422,
@@ -63,7 +63,10 @@ const checkUsernameExists = async (req, res, next) => {
 */
 const checkPasswordLength = (req, res, next) => {
   const { password } = req.body;
-  if (password.length < 3) {
+  if (
+    password === undefined ||
+    password.length <= 3
+  ) {
     next({
       status: 422,
       message: "Password must be longer than 3 chars"

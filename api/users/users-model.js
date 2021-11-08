@@ -15,12 +15,16 @@ const find = async () => {
 const findBy = async (filter) => {
   const filteredUsers = await db("users")
     .where(filter);
-  return filteredUsers.map(user => {
-    return {
-      user_id: user.user_id,
-      username: user.username
-    };
-  });
+  if (filteredUsers.length) {
+    return filteredUsers.map(user => {
+      return {
+        user_id: user.user_id,
+        username: user.username
+      };
+    });
+  } else {
+    return null;
+  }
 };
 
 // resolves to the user { user_id, username } with the given user_id
