@@ -31,7 +31,7 @@ server.use(cors());
 
 // Session setup
 server.use(session({
-  name: "client",
+  name: "chocolatechip",
   secret: "spooky, scary, skeletons!",
   cookie: {
     maxAge: 1000 * 60 * 5,

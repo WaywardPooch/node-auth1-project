@@ -6,7 +6,8 @@ const find = async () => {
   return users.map(user => {
     return {
       user_id: user.user_id,
-      username: user.username
+      username: user.username,
+      password: user.password
     };
   });
 };
@@ -19,7 +20,8 @@ const findBy = async (filter) => {
     return filteredUsers.map(user => {
       return {
         user_id: user.user_id,
-        username: user.username
+        username: user.username,
+        password: user.password
       };
     });
   } else {
@@ -34,7 +36,8 @@ const findById = async (user_id) => {
     .first();
   return {
     user_id: user.user_id,
-    username: user.username
+    username: user.username,
+    password: user.password
   };
 };
 
